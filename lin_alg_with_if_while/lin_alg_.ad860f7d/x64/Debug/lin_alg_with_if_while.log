@@ -1,2 +1,13 @@
 ﻿  lin_alg_with_if_while.cpp
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(29,37): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u0412' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u0432' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u0435' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u0434' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u0438' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u0442' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u0447' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u043E' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u0430' cannot be represented in the current code page (1252)
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(94,13): warning C4566: character represented by universal-character-name '\u043C' cannot be represented in the current code page (1252)
   lin_alg_with_if_while.vcxproj -> C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\x64\Debug\lin_alg_with_if_while.exe

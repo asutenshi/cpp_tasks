@@ -1,15 +1,63 @@
-#include <iostream>
+﻿#include <iostream>
 #include <iomanip>
+#include <cmath>
 
 using namespace std;
 
 int tForthCommerce();
 int tFifthMilesInKilometers();
+void tFirstFx();
 
 int main(void)
 {
-    tFifthMilesInKilometers();
+    tFirstFx();
     return 0;
+}
+float f4(float x)
+{
+   return x * x * x * x;
+}
+float fTan(float x)
+{
+    return tan(x);
+}
+
+void tFirstFx(void)
+{
+    int parity = 0, odd = 0, general = 0;
+
+    for (float x = -5; x <= 5; x += 0.1)
+    {
+        if (x == 0) {
+            continue;
+        }
+
+        float f = fTan(x);
+        float f_minus_x = fTan(-x);
+        cout << f << ' ' << f_minus_x << ' ' << f << endl;
+
+        if (f == f_minus_x)
+        {
+            parity++;
+        }
+        else if (f == -f)
+        {
+            odd++;
+        }
+        else
+        {
+            cout << "Function is general";
+            break;
+        }
+    }
+    if (parity > 0 && odd == 0 && general == 0)
+    {
+        cout << "Function is parity";
+    }
+    else if (odd > 0 && parity == 0 && general == 0)
+    {
+        cout << "Funcrion is odd";
+    }
 }
 
 int tForthCommerce(void)
@@ -40,8 +88,10 @@ int tForthCommerce(void)
 int tFifthMilesInKilometers(void)
 {
     float miles, kilometers, k;
+
     miles = 0;
     kilometers = 0;
+    cout << "Введите что-то там";
     cout << "Enter the limit to which you want to build the table (km): ";
     cin >> k;
     cout << "Miles    Kilometrs" << endl;
