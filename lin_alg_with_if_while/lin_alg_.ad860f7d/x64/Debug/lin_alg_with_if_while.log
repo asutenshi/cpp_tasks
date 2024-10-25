@@ -1,10 +1,9 @@
 ﻿  lin_alg_with_if_while.cpp
-C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(37,15): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(59,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(59,33): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(75,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(75,33): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(276,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(276,33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(322,19): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(36,15): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(58,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(58,33): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(74,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(74,33): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(305,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\lin_alg_with_if_while.cpp(305,33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   lin_alg_with_if_while.vcxproj -> C:\Users\tenshi\Documents\code\cpp_tasks\lin_alg_with_if_while\x64\Debug\lin_alg_with_if_while.exe

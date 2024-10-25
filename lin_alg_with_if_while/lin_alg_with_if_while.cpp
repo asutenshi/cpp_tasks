@@ -17,8 +17,7 @@ void tEighthSGPredel();
 
 int main(void)
 {
-    tSeventhFGPredel();
-    //tEighthSGPredel();
+    tFifthMilesInKilometers();
     return 0;
 }
 
@@ -203,51 +202,81 @@ int tForthCommerce(void)
 
 int tFifthMilesInKilometers(void)
 {
+//    float k;
+//    double miles = 0;
+//    double kilometers = 0;
+//
+//    cout << "Enter the limit to which you want to build the table (km): ";
+//    cin >> k;
+//    cout << "Miles    Kilometrs" << endl;
+//    
+////---------------------------------------------------------------//
+//
+//    while (k > kilometers)
+//    {
+//        kilometers += 1;
+//        miles += 1;
+//        if (k > kilometers)
+//        {
+//            cout << fixed << setprecision(4) << left << setw(9) << kilometers * 0.6214 << kilometers << endl;
+//        }
+//        else break;
+//        if (k > miles * 1.609344)
+//        {
+//            cout << fixed << setprecision(4) << left << setw(9) << miles << miles * 1.609344 << endl;
+//        }
+//        else break;
+//
+//        kilometers += 1;
+//        if (k > kilometers)
+//        {
+//        cout << fixed<< setprecision(4) << left << setw(9) << kilometers * 0.6214 << kilometers << endl;
+//        }
+//        else break;
+//        kilometers += 1;
+//        if (k > kilometers)
+//        {
+//        cout << fixed << setprecision(4) << left << setw(9) << kilometers * 0.6214 << kilometers << endl;
+//        }
+//        else break;
+//        miles += 1;
+//        if (k > miles * 1.609344)
+//        {
+//            cout << fixed << setprecision(4) << left << setw(9) << miles << miles * 1.609344 << endl;
+//        }
+//        else break;
+//    }
+//    return 1;
     float k;
-    double miles = 0;
-    double kilometers = 0;
-
     cout << "Enter the limit to which you want to build the table (km): ";
     cin >> k;
-    cout << "Miles    Kilometrs" << endl;
     
-//---------------------------------------------------------------//
+    cout << left << setw(9) << "Miles" << "Kilometers" << endl;
 
-    while (k > kilometers)
-    {
-        kilometers += 1;
-        miles += 1;
-        if (k > kilometers)
-        {
-            cout << fixed << setprecision(4) << left << setw(9) << kilometers * 0.6214 << kilometers << endl;
-        }
-        else break;
-        if (k > miles * 1.609344)
-        {
-            cout << fixed << setprecision(4) << left << setw(9) << miles << miles * 1.609344 << endl;
-        }
-        else break;
+    // Инициализация переменных
+    double miles = 0;
+    double kilometers = 0;
+    
+    // Шаг для миль и километров
+    double mileStep = 1.609344;
+    double kmStep = 1;
 
-        kilometers += 1;
-        if (k > kilometers)
-        {
-        cout << fixed<< setprecision(4) << left << setw(9) << kilometers * 0.6214 << kilometers << endl;
-        }
-        else break;
-        kilometers += 1;
-        if (k > kilometers)
-        {
+    // Цикл для вывода таблицы
+    while (kilometers <= k) {
+        // Вывод строки с километрами
         cout << fixed << setprecision(4) << left << setw(9) << kilometers * 0.6214 << kilometers << endl;
-        }
-        else break;
+        kilometers += kmStep;
+
+        if (kilometers > k) break;
+
+        // Вывод строки с милями
+        cout << fixed << setprecision(4) << left << setw(9) << miles << miles * mileStep << endl;
         miles += 1;
-        if (k > miles * 1.609344)
-        {
-            cout << fixed << setprecision(4) << left << setw(9) << miles << miles * 1.609344 << endl;
-        }
-        else break;
+
+        if (miles * mileStep > k) break;
     }
-    return 1;
+
+    return 0;
 }
 
 float numberComb(float m, float i)
@@ -315,15 +344,5 @@ void tEighthSGPredel(void)
 
 void tNinethInfFraction(void)
 {
-    int frac = 2;
-    int e = 100;
-    for (int i = 2; i <= e; i++)
-    {
-        frac += 1 / tgamma(i);
-    }
-    
-    for (int i = e; i > 0; i--)
-    {
 
-    }
 }
