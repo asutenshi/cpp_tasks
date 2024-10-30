@@ -1,3 +1,3 @@
 ﻿  metodykhraneniyadannykh.cpp
-C:\Users\tenshi\Documents\code\cpp_tasks\metodykhraneniyadannykh\metodykhraneniyadannykh.cpp(48,9): warning C4101: 'another_font': unreferenced local variable
+C:\Users\tenshi\Documents\code\cpp_tasks\metodykhraneniyadannykh\metodykhraneniyadannykh.cpp(51,9): warning C4101: 'another_font': unreferenced local variable
   metodykhraneniyadannykh.vcxproj -> C:\Users\tenshi\Documents\code\cpp_tasks\metodykhraneniyadannykh\x64\Debug\metodykhraneniyadannykh.exe
