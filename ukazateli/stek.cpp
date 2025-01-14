@@ -13,7 +13,5 @@ int main(void) {
 
   cin.getline(str, SIZE_STR);
 
-  cout << SIZE_STEK;
-
   return 0;
 }
