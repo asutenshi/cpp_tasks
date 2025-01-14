@@ -9,31 +9,37 @@ int main(void) {
   int numbers[10];
   int *pnumbers = numbers;
 
+  for (int i = 0; i <= N; i++)
+    *(pstr + i) = 0;
+
   for (int i = 0; i < 10; i++) {
-    *pnumbers = 0;
-    pnumbers++;
+    *(pnumbers + i) = i;
+    cout << "pnumbers = " << *pnumbers << " pnumbers + i = " << *(pnumbers + i)
+         << endl;
   }
-  pnumbers = numbers;
 
   cout << "Enter the string and press enter" << endl;
   cin.getline(str, 80);
 
   for (int i = 0; i < N; i++) {
-    if (*pstr >= '0' && *pstr <= '9') {
-      numbers[*(pstr+i) - '0']++;
+    if (*(pstr + i) >= '0' && *(pstr + i) <= '9') {
+      *(pnumbers + *(pstr + i) - '0') += 1;
     }
-    pstr++;
+  }
+
+  for (int i = 0; i < 10; i++) {
+    cout << "pnumbers = " << *pnumbers << " pnumbers + i = " << *(pnumbers + i)
+         << endl;
   }
 
   int max = 0;
   int max_i = 0;
   for (int i = 0; i < 10; i++) {
-      if (max <= *pnumbers) {
-          max = *pnumbers;
-          max_i = i;
-      }
-      pnumbers++;
+    if (max <= *(pnumbers + i)) {
+      max = *(pnumbers + i);
+      max_i = i;
+    }
   }
 
   cout << "Most frequently repeated number = " << max_i << endl;
-} 
+}
