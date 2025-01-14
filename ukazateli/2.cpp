@@ -1,12 +1,11 @@
 #include <iostream>
-#include <iomanip>
 
 using namespace std;
 
 int main(void) {
   int const N = 80;
-  char str[N + 1] = {'0'};
-  char newStr[N + 1];
+  char str[N + 1] = {'\0'};
+  char newStr[N + 1] = {'\0'};
   char *pstr = str;
   char *pnewStr = newStr;
   int strLen = 0;
@@ -17,45 +16,34 @@ int main(void) {
   cout << "Old string: " << endl;
   cout << str << endl;
 
-  for (int i = 0; i < N; i++) {
-    if (*pstr != 0) {
-        strLen++;
-    }
-    if ((i == 0 || i == N-1) && *pstr == ' ') {
-        while (*pstr == ' ') {
-            pstr++;
-            continue;
-        }
-    }
-    else if (*pstr == ' ' && *(pstr+1) == ' ') {
-        pstr++;
-        continue;
-    }
-    else {
-        *pnewStr = *pstr;
-        pstr++;
-        pnewStr++;
-    }
-  }
-  pnewStr = newStr;
-  char *pSdvig = pnewStr + 80 - strLen;
-  cout << "pSdvig ind = " << 80 - strLen << endl;
+  while (*pstr == ' ')
+    pstr++;
 
-  for (int i = 0; i < N; i++) {
-      if (*pnewStr == '0'){ 
-          break;
-      }
-      *pSdvig = *pnewStr;
-      *pnewStr = 0;
+  while (*pstr != '\0') {
+    if (*pstr == ' ' && (*(pstr + 1) == ' ' || *(pstr + 1) == '\0')) {
+      pstr++;
+    } else {
+      *pnewStr = *pstr;
+      pstr++;
       pnewStr++;
-      pSdvig++;
+      strLen++;
+    }
   }
 
-  newStr[N] = 0;
+  cout << "newStr" << endl << newStr << endl;
+  cout << "strLen = " << strLen << endl;
 
-  cout << "New string: "<< endl;
-  cout << newStr << endl;
-  cout << "StrLen = " << strLen << endl;
+  char *pSdvig =
+      pnewStr + 80 - strLen - 1; // - 1 т.к. мы закончим цикл на символе '\0'
+
+  for (int i = 0; i <= strLen; i++) {
+    *pSdvig = *pnewStr;
+    *pnewStr = ' ';
+    pSdvig--;
+    pnewStr--;
+  }
+
+  cout << "newStrSdvig" << endl << newStr;
 
   return 0;
 }
