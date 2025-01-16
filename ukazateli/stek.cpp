@@ -9,23 +9,30 @@ int main(void) {
   char str[SIZE_STR + 1] = {'\0'};
   char *pstr = str;
 
-  int const SIZE_STEK = SIZE_STR / 2;
+  int const SIZE_STEK =
+      SIZE_STR / 2; // корректная расстоновка скобок возможна только в случае
+                    // если в строке size / 2 октрывающих скобок
   char stek[SIZE_STEK] = {'\0'};
   char *pstek = stek;
 
   cin.getline(str, SIZE_STR);
 
-  while (*pstr != '\0') {
-    int bracket = brackets(*pstr);
-    if (bracket > 0) {
+  while (*pstr != '\0') { // в условие учитывается выход за пределы стека
+    int bracket =
+        brackets(*pstr); // функция используется для того, чтобы программа
+                         // работала одинаково при любой кодировке
+    if (bracket > 0 &&
+        pstek <= stek + SIZE_STEK) { // если открывающая скобка кидаем в стек
+      cout << bracket << " > 0 " << *pstr << endl;
       *pstek = *pstr;
       pstek++;
-    } else if (bracket < 0) {
+    } else if (bracket < 0 && pstek >= stek) { // если закрывающая скобка, то
+                                               // проверяем сотсветсвует ли
+      // скобка на верхну стека скобке закрывающей
+      cout << bracket << " < 0 " << *pstr << endl;
+      pstek--;
       if (brackets(*pstek) == -bracket) {
         *pstek = '\0';
-        if (pstek != stek) {
-          pstek--;
-        }
       } else {
         cout << "Incorrect brackets combination" << endl;
         return -1;
