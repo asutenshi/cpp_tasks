@@ -21,6 +21,21 @@ int countPoints(const char *fileName) {
   return i;
 }
 
+bool checkCountPoints(int pointNum) {
+  if (pointNum < 0) {
+    cout << "Программа не получила ни одной точки" << endl;
+    return false;
+  } else if (pointNum < 4) {
+    cout << "Программа получила менее 3 точек" << endl;
+    return false;
+  } else
+    return true;
+}
+
+int countTriangles(int pointNum) {
+  return (pointNum * (pointNum - 1) * (pointNum - 2) / 6);
+}
+
 bool readPoints(const char *fileName, Point *pointArray, int maxPointNum) {
   ifstream in(fileName);
 
@@ -47,17 +62,25 @@ ostream &operator<<(ostream &out, const Point &p) {
 
 ostream &operator<<(ostream &out, const Triangle &tr) {
   const Point *v = tr.vertexes;
-  out << "A = " << v[0] << " B = " << v[1] << " C = " << v[2]
-      << " area = " << tr.area;
+  out << "A = " << v[0] << " B = " << v[1] << " C = " << v[2];
   return out;
 }
 
-bool writeTriangles(const char *fileName, const Triangle *trArray, int trNum) {
+bool writeTriangles(const char *fileName, const Triangle *trArray, int trNum,
+                    bool sortByPerimeter) {
   ofstream out(fileName);
 
-  if (!out.is_open())
+  if (!out.is_open()) {
     return false;
-  for (int i = 0; i < trNum; i++)
-    out << "#" << i + 1 << ": " << trArray[i] << endl;
+  }
+  if (sortByPerimeter) {
+    for (int i = 0; i < trNum; i++)
+      out << "#" << i + 1 << ": " << trArray[i]
+          << " perimetr = " << trArray[i].perimetr << endl;
+  } else {
+    for (int i = 0; i < trNum; i++)
+      out << "#" << i + 1 << ": " << trArray[i] << " area = " << trArray[i].area
+          << endl;
+  }
   return true;
 }

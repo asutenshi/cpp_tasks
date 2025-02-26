@@ -20,6 +20,12 @@ bool checkTriangle(const Triangle &tr) {
              v[2].x * (v[0].y - v[2].y);
 }
 
+double calcTrianglePerimeter(Triangle &tr) {
+  Point *v = tr.vertexes;
+  return tr.perimetr = calcDistance(v[0], v[1]) + calcDistance(v[1], v[2]) +
+                       calcDistance(v[0], v[2]);
+}
+
 double calcTriangleArea(Triangle &tr) {
   Point *v = tr.vertexes;
   double a = calcDistance(v[0], v[1]);

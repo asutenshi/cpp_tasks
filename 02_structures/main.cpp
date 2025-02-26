@@ -1,4 +1,5 @@
 #include "file.h"
+#include "geometry.h"
 #include "search.h"
 #include <iostream>
 
@@ -10,49 +11,73 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  /*int inputType = 0;*/
-  /**/
-  /*cout << "Программа для поиска треугольников с самой большой площадью" << endl;*/
-  /*cout << "Необходимо выбрать способ ввода координат треугольника" << endl*/
-  /*     << "Ручной ввод (1)" << endl*/
-  /*     << "Чтение из файла (2)" << endl;*/
-  /**/
-  /*do {*/
-  /*  cout << "Введите способ ввода (1 или 2): " << endl;*/
-  /*  cin >> inputType;*/
-  /*} while (inputType != 1 && inputType != 2);*/
+  bool inputType;
+  cout << "Программа для поиска треугольников с самой большой "
+          "площадью/периметром"
+       << endl;
+  cout << "Необходимо выбрать способ ввода координат треугольника" << endl
+       << "Ввод из файла (0)" << endl
+       << "Ручной ввод (1)" << endl;
+  do {
+    cout << "Введите способ ввода (0 или 1): " << endl;
+    cin >> inputType;
+  } while (inputType && !inputType);
+
+  int pointNum = 0;
+  Point *pointArray;
 
   const char *inFileName = argv[1];
   const char *outFileName = argv[2];
-  int pointNum = countPoints(inFileName);
 
-  if (pointNum < 0) {
-    cout << "Входной файл не существует" << endl;
-    return -2;
-  } else if (pointNum < 4) {
-    cout << "Входной файл слишком мал" << endl;
-    return -3;
+  if (inputType) {
+    do {
+      cout << "Введите количество точек для ввода (не менее 3): ";
+      cin >> pointNum;
+    } while (pointNum <= 3);
+    pointArray = new Point[pointNum];
+    cout << "Последовательно введите " << pointNum << " точек/ки" << endl;
+    for (int i = 0; i < pointNum; i++) {
+      cout << i + 1 << "# точка (x y enter): ";
+      cin >> pointArray[i];
+    }
+  } else {
+    pointNum = countPoints(inFileName);
+    pointArray = new Point[pointNum];
+    if (!readPoints(inFileName, pointArray, pointNum)) {
+      cout << "Неизвестная ошибка при вводе точек" << endl;
+      return -3;
+    }
+    if (!checkCountPoints(pointNum)) {
+      return -2;
+    }
   }
 
-  Point *pointArray = new Point[pointNum];
-  if (!readPoints(inFileName, pointArray, pointNum)) {
-    cout << "Неизвестная ошибка при вводе точек" << endl;
-    return -3;
-  }
+  bool sortByPerimetr;
+  do {
+    cout << "Вы хотите отсортировать треугольники по площади или по "
+            "периметру? "
+            "(0 - площадь, 1 - периметр)"
+         << endl;
+    cin >> sortByPerimetr;
+  } while (sortByPerimetr && !sortByPerimetr);
 
-  for (int i = 0; i < 9; i++) {
-    cout << "p" << i << " = " << *(pointArray + i) << endl;
-  }
+  int maxTrNum = 0;
+  do {
+    cout << "Введите кол-во треугольников на вывод (не более "
+         << countTriangles(pointNum) << ')' << endl;
+    cin >> maxTrNum;
+  } while (maxTrNum < 0);
+  Triangle *trArray = new Triangle[maxTrNum];
 
-  const int maxTrNum = 3;
-  Triangle trArray[maxTrNum];
-  searchLargestTriangles(pointArray, pointNum, trArray, maxTrNum);
+  searchLargestTriangles(pointArray, pointNum, trArray, maxTrNum,
+                         sortByPerimetr);
 
-  if (!writeTriangles(outFileName, trArray, maxTrNum)) {
+  if (!writeTriangles(outFileName, trArray, maxTrNum, sortByPerimetr)) {
     cout << "Не удалось записать результат" << endl;
     return -4;
   }
   cout << "Программа успешно завершена" << endl;
   delete[] pointArray;
+  delete[] trArray;
   return 0;
 }
