@@ -37,14 +37,19 @@ int main(void) {
   // cout << "корень = " << linear_eq(k, b) << endl;
   // cout << "квадратный корень из " << k << " = " << k.sqrt() << endl;
 
-  Rational a(12, 15);
-  Rational b(8, 3);
-  Rational c(1, 9);
-  Rational out[2] = {0, 0};
-  quad_eq(a, b, c, out);
+  // Rational a(12, 15);
+  // Rational b(8, 3);
+  // Rational c(1, 9);
+  // Rational out[2] = {0, 0};
+  // quad_eq(a, b, c, out);
   
-  cout << "Для уравнения y = (" << a << ")*x^2 + (" << b << ")*x + (" << c
-    << ") x1 = " << out[0] << " x2 = " << out[1] << endl;
+  // cout << "Для уравнения y = (" << a << ")*x^2 + (" << b << ")*x + (" << c
+  //   << ") x1 = " << out[0] << " x2 = " << out[1] << endl;
+
+  double a = -3.14;
+  long long* bits = (long long*)&a;
+  int sign = (*bits >> 63) & 1;
+  cout << sign << endl;
 
   return 0;
 }
