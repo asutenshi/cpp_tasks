@@ -5,6 +5,8 @@
 
 using namespace std;
 
+class RationalException{};
+
 class Rational {
     int numer;
     int denom;
@@ -13,6 +15,7 @@ class Rational {
         Rational();
         Rational(int number);
         Rational(int n, int d);
+        Rational& operator =(const Rational& r);
         /*
         Я реализовал геттеры и сеттеры т.к. начал реализовывать
         ввод/вывод до того, как узнал о friend. Пришлось все равно прописать
@@ -44,6 +47,7 @@ class Rational {
         operator int() const;
         operator double() const;
         Rational sqrt() const;
+        Rational abs() const;
         friend istream &operator >> (istream &in, Rational &r);
         friend ostream &operator << (ostream &out, const Rational &r);
 };

@@ -1,4 +1,5 @@
 #include "rational.h"
+#include <climits>
 #include <iostream>
 
 using namespace std;
@@ -17,6 +18,18 @@ Rational::Rational(int n, int d) {
     numer = n;
     denom = d;
     simplify();
+}
+
+Rational& Rational::operator =(const Rational& r)
+{
+    if (r.getNumer() > INT_MAX/r.getDenom())
+    {
+        throw RationalException();
+    }
+    numer = r.numer;
+    denom = r.denom;
+    simplify();
+    return *this;
 }
 
 int Rational::getNumer() const {
@@ -180,9 +193,28 @@ int sqrt_newton_int(int n) {
     return (int)(x + 0.5);
 }
 
+Rational Rational::abs() const {
+    return Rational(abs_bitwise(getNumer()), abs_bitwise(getDenom()));
+}
+
 Rational Rational::sqrt() const {
-    Rational other(sqrt_newton_int(getNumer()), sqrt_newton_int(getDenom()));
-    return other;
+    Rational x(*this);
+    Rational e(1, 10000);
+    Rational x_prev(*this);
+    x_prev++;
+    while ((x_prev - x).abs() > e)
+    {
+        cout << x << endl;
+        x_prev = x;
+        try
+        {
+            x = Rational(1, 2) * (x + (*this / x));
+        } catch (RationalException& e)
+        {
+            break;
+        }
+    }
+    return x;
 }
 
 istream &operator >> (istream &in, Rational &r) {

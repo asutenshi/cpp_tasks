@@ -46,10 +46,8 @@ int main(void) {
   // cout << "Для уравнения y = (" << a << ")*x^2 + (" << b << ")*x + (" << c
   //   << ") x1 = " << out[0] << " x2 = " << out[1] << endl;
 
-  double a = -3.14;
-  long long* bits = (long long*)&a;
-  int sign = (*bits >> 63) & 1;
-  cout << sign << endl;
+  Rational x(121, 1);
+  cout << x.sqrt() << endl;
 
   return 0;
 }
