@@ -1,0 +1,280 @@
+```cpp
+main.cpp
+#include <iostream>
+
+#include "suffixTree.h"
+
+using namespace std;
+
+int main(int argc, char **argv)
+{
+    SuffixTree suffTree;
+    if (argc > 2)
+    {
+        throw runtime_error("Run this program with 'suffixTree' or 'suffixTree input.txt'");
+    }
+    else if (argc == 2)
+    {
+        string file_path = argv[1];
+        ifstream in(file_path);
+        if (!in.is_open())
+            throw runtime_error("Cann't open file " + file_path);
+        suffTree = SuffixTree(in);
+    }
+    else
+    {
+        string input;
+        cout << "Write string for build a suffixTree: ";
+        cin >> input;
+        suffTree = SuffixTree(input+'$');
+    }
+    string buff;
+    while (true)
+    {
+        cout << "Write string to find in suffixTree (q$ for quit): ";
+        cin >> buff;
+        if (buff == "q$")
+            break;
+        if (suffTree.contain(buff))
+            cout << "SuffixTree contain string " << (buff.size() > 10 ? buff.substr(0, 10) : buff) << endl;
+        else
+            cout << "SuffixTree NOT contain string " << (buff.size() > 10 ? buff.substr(0, 10) : buff) << endl;
+    }
+    return 0;
+}
+current.h
+#ifndef _CURRENT_H
+#define _CURRENT_H
+
+class SuffixTree;
+
+class Current
+{
+    int node_ind, edge_ind;
+
+    public:
+        Current(int node_ind, int edge_ind) : 
+            node_ind(node_ind), edge_ind(edge_ind) {}
+        friend class SuffixTree;
+};
+
+#endif
+node.h
+#ifndef _NODE_H
+#define _NODE_H
+
+#include <unordered_map>
+#include <iostream>
+
+using namespace std;
+
+class SuffixTree;
+
+class Node
+{
+    int l, r, parent, suff_link;
+    unordered_map<char, int> children;
+
+    public:
+        Node(int l=0, int r=0, int parent=-1) : 
+            l(l), r(r), parent(parent), suff_link(-1) {}
+        int len() { return r - l; }
+        int& get(char c)
+        {
+            if (children.find(c) == children.end())
+                children[c] = -1;
+            return children[c];
+        }
+        friend class SuffixTree;
+        friend ostream& operator <<(ostream& out, const Node& node)
+        {
+            out << "l=" << node.l << " r=" << node.r << " parent=" << node.parent;
+            return out;
+        }
+        friend ostream& operator <<(ostream& out, const SuffixTree& tree);
+};
+
+#endif
+suffixTree.h
+#ifndef _SUFFIX_TREE_H
+#define _SUFFIX_TREE_H
+
+#include <vector>
+#include <string>
+#include <fstream>
+
+#include "node.h"
+#include "current.h"
+
+using namespace std;
+
+class SuffixTree
+{
+    string s;
+    int s_length;
+    Node* tree;
+    int size;
+
+    Current curr;
+
+    public:
+        SuffixTree();
+        SuffixTree(string s);
+        SuffixTree(ifstream& in);
+        ~SuffixTree();
+
+        Current moveDown(Current curr, int l, int r);
+        int split(Current curr);
+        int getLink(int id);
+        void treeExtend(int pos);
+        void build_tree();
+        bool contain(string find);
+
+        friend ostream& operator <<(ostream& out, const SuffixTree& tree);
+};
+
+#endif
+suffixTree.cpp
+#include "suffixTree.h"
+
+SuffixTree::SuffixTree() : curr(0, 0) {}
+
+SuffixTree::SuffixTree(string s) : curr(0, 0), s(s), s_length(s.length()) 
+{
+    tree = new Node[2*s_length];
+    build_tree();
+}
+
+SuffixTree::SuffixTree(ifstream& in) : curr(0, 0) 
+{
+    if (!in.is_open())
+        throw runtime_error("File is not opened");
+    s_length = 0;
+    char c;
+    while (in.get(c))
+    {
+        s += c;
+        ++s_length;
+    }
+    s += '$';
+    ++s_length;
+    tree = new Node[2*s_length];
+    build_tree();
+}
+
+SuffixTree::~SuffixTree()
+{
+    delete[] tree;
+}
+
+Current SuffixTree::moveDown(Current curr, int l, int r)
+{
+    while (l < r)
+    {
+        if (curr.edge_ind == tree[curr.node_ind].len())
+        {
+            curr = Current(tree[curr.node_ind].get(s[l]), 0);
+            if (curr.node_ind == -1) return curr;
+        }
+        else
+        {
+            if (s[tree[curr.node_ind].l + curr.edge_ind] != s[l])
+                return Current(-1, -1);
+            if (r - l < tree[curr.node_ind].len() - curr.edge_ind)
+                return Current(curr.node_ind, curr.edge_ind + r-l);
+            l += tree[curr.node_ind].len() - curr.edge_ind;
+            curr.edge_ind = tree[curr.node_ind].len();
+        }
+    }
+    return curr;
+}
+
+int SuffixTree::split(Current curr)
+{
+    if (curr.edge_ind == tree[curr.node_ind].len())
+        return curr.node_ind;
+    if (curr.edge_ind == 0)
+        return tree[curr.node_ind].parent;
+    Node node = tree[curr.node_ind];
+    int id = size++;
+    tree[id] = Node(node.l, node.l + curr.edge_ind, node.parent);
+    tree[node.parent].get(s[node.l]) = id;
+    tree[id].get(s[node.l + curr.edge_ind]) = curr.node_ind;
+    tree[curr.node_ind].parent = id; 
+    tree[curr.node_ind].l += curr.edge_ind;
+    return id;
+}
+
+int SuffixTree::getLink(int id)
+{
+    if (tree[id].suff_link != -1) return tree[id].suff_link;
+    if (tree[id].parent == -1) return 0;
+    int to = getLink(tree[id].parent);
+    return tree[id].suff_link = split(
+        moveDown(Current(to, tree[to].len()), 
+        tree[id].l + (tree[id].parent==0), 
+        tree[id].r)
+    ) ;
+}
+
+void SuffixTree::treeExtend(int pos)
+{
+    for (;;)
+    {
+        Current ncurr = moveDown(curr, pos, pos+1);
+        if (ncurr.node_ind != -1)
+        {
+            curr = ncurr;
+            return;
+        }
+
+        int mid = split(curr);
+        int leaf = size++;
+        tree[leaf] = Node(pos, s_length, mid);
+        tree[mid].get(s[pos]) = leaf;
+
+        curr.node_ind = getLink(mid);
+        curr.edge_ind = tree[curr.node_ind].len();
+        if (!mid) break;
+    }
+}
+
+void SuffixTree::build_tree()
+{
+    size = 1;
+    for (int i = 0; i < s_length; i++)
+    {
+        treeExtend(i);
+    }
+}
+
+bool SuffixTree::contain(string find)
+{
+    curr = Current(0, 0);
+    for (int i = 0; i < find.length(); i++)
+    {
+        if (curr.edge_ind == tree[curr.node_ind].len())
+        {
+            if (tree[curr.node_ind].get(find[i]) == -1)
+                return false;
+            curr.node_ind = tree[curr.node_ind].get(find[i]);
+            curr.edge_ind = 1;
+        }
+        else
+        {
+            if (s[tree[curr.node_ind].l + curr.edge_ind] != find[i])
+                return false;
+            curr.edge_ind++;
+        }
+    }
+    return true;
+}
+
+ostream& operator <<(ostream& out, const SuffixTree& tree)
+{
+    out << "SuffixTree:" << endl;
+    for (int i = 0; i < tree.size; i++)
+        out << '\t' << i << "->" << tree.s.substr((tree.tree+i)->l, (tree.tree+i)->len())<< ' ' << *(tree.tree + i) << endl;
+    return out;
+}
+```

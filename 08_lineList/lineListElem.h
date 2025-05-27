@@ -13,7 +13,7 @@ template <class T> class LineListElem
         const T& getData() const; 
         LineListElem* getNext();
         // template <class U> friend class LineList;
-        friend class LineList<T>;
+         class LineList<T>;
 };
 
 template <class T> LineListElem<T>::LineListElem(
